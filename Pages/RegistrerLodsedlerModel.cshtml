@@ -1,0 +1,19 @@
+﻿@page
+@model EZLotteri.Pages.RegistrerLodsedlerModel
+@{
+    ViewData["Title"] = "Registrer Lodsedler";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="BarnID"></label>
+        <select asp-for="BarnID" class="form-control" asp-items="@Model.Børn"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="AntalLodsedler"></label>
+        <input asp-for="AntalLodsedler" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Registrer Lodsedler</button>
+</form>

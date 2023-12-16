@@ -1,0 +1,51 @@
+﻿@page
+@model EZLotteri.Pages.BørneGrupperPageModel
+@{
+    ViewData["Title"] = "BørneGrupper";
+}
+
+<h2>BørneGrupper</h2>
+
+@if (Model.Børnegrupper != null && Model.Børnegrupper.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Gruppe ID</th>
+                <th>Navn</th>
+                <th>Leder</th>
+                <th>Antal Børn</th>
+                <th>Børn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var gruppe in Model.Børnegrupper)
+            {
+                <tr>
+                    <td>@gruppe.BørnegruppeID</td>
+                    <td>@gruppe.Navn</td>
+                    <td>@gruppe.Leder.Navn</td>
+                    <td>@(gruppe.Børn != null ? gruppe.Børn.Count : 0)</td>
+                    <!-- Tilføj link til børnene -->
+                    <td><a asp-page="BørneGrupper" asp-route-gruppeId="@gruppe.BørnegruppeID">Se Børn</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Ingen Børnegrupper tilgængelige.</p>
+}
+
+<!-- Tilføj sektion for at vise børnene -->
+@if (Model.Børn != null && Model.Børn.Any())
+{
+    <h3>Børn under valgt børnegruppe:</h3>
+    <ul>
+        @foreach (var barn in Model.Børn)
+        {
+            <li>@barn.Navn</li>
+        }
+    </ul>
+}
