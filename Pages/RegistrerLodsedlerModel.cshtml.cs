@@ -35,7 +35,7 @@ namespace EZLotteri.Pages
         {
             if (ModelState.IsValid)
             {
-                RegistrerLodsedler();
+                RegistrerLodsedler(); 
                 return RedirectToPage("/RegistrerLodsedler/Index");
             }
 
@@ -43,20 +43,22 @@ namespace EZLotteri.Pages
             return Page();
         }
 
-        private void HentAlleBørn()
-        {
-            Børn = _dbContext.Børn.ToList();
-        }
-
         private void RegistrerLodsedler()
         {
-            var barn = _dbContext.Børn.Find(BarnID);
+            throw new NotImplementedException();
+        }
 
-            if (barn != null)
-            {
-                barn.AntalModtagneLodsedler = AntalLodsedler;
-                _dbContext.SaveChanges();
-            }
+        private void HentAlleBørn()
+        {
+            Børn = _dbContext.Børn
+                .Select(b => new Barn
+                {
+                    BarnID = b.BarnID,
+                    Navn = b.Navn,
+                    LederID = b.LederID,
+                    AntalModtagneLodsedler = b.AntalModtagneLodsedler
+                })
+                .ToList();
         }
     }
 }
