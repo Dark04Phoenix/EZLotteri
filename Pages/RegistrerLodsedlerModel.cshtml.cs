@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EZLotteri.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EZLotteri.Pages
@@ -22,11 +23,11 @@ namespace EZLotteri.Pages
         [BindProperty]
         public int AntalLodsedler { get; set; }
 
-        public SelectList Børn { get; set; }
+        public List<Barn> Børn { get; set; }
 
-        public void OnGet(int gruppeId)
+        public void OnGet()
         {
-            HentBørnForGruppe(gruppeId);
+            HentAlleBørn();
         }
 
         public IActionResult OnPost()
@@ -34,21 +35,16 @@ namespace EZLotteri.Pages
             if (ModelState.IsValid)
             {
                 RegistrerLodsedler();
-                return RedirectToPage("/BørneGrupperPageModel"); // Redirect til oversigten over børnegrupper
+                return RedirectToPage("/RegistrerLodsedler"); // Redirect til samme side
             }
 
-            HentBørnForGruppe(_dbContext.Børnegruppe.FirstOrDefault(b => b.BørnegruppeID == BarnID)?.BørnegruppeID ?? 0);
+            HentAlleBørn();
             return Page();
         }
 
-        private void HentBørnForGruppe(int gruppeId)
+        private void HentAlleBørn()
         {
-            var børn = _dbContext.Børn
-                .Where(b => b.Børnegruppe.BørnegruppeID == gruppeId)
-                .Include(b => b.Børnegruppe) // Inkluder Børnegruppe for at undgå null-reference
-                .ToList();
-
-            Børn = new SelectList(børn, nameof(Barn.BarnID), nameof(Barn.Navn));
+            Børn = _dbContext.Børn.ToList();
         }
 
         private void RegistrerLodsedler()

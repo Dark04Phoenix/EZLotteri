@@ -61,6 +61,11 @@ namespace EZLotteri.Models
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+                endpoints.MapControllerRoute(
+                    name: "RegistrerLodsedler",
+                    pattern: "RegistrerLodsedler/{action=Index}/{id?}",
+                    defaults: new { controller = "RegistrerLodsedler" });
+
                 endpoints.MapRazorPages();
             });
         }

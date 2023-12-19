@@ -4,12 +4,36 @@
     ViewData["Title"] = "Registrer Lodsedler";
 }
 
+@using EZLotteri.Models
+
 <h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Barn ID</th>
+            <th>Navn</th>
+            <th>Leder ID</th>
+            <th>Antal Modtagne Lodsedler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var barn in Model.Børn)
+        {
+            <tr>
+                <td>@barn.BarnID</td>
+                <td>@barn.Navn</td>
+                <td>@barn.LederID</td>
+                <td>@barn.AntalModtagneLodsedler</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <form method="post">
     <div class="form-group">
         <label asp-for="BarnID"></label>
-        <select asp-for="BarnID" class="form-control" asp-items="@Model.Børn"></select>
+        <select asp-for="BarnID" class="form-control" asp-items="@new SelectList(Model.Børn, nameof(Barn.BarnID), nameof(Barn.Navn))"></select>
     </div>
     <div class="form-group">
         <label asp-for="AntalLodsedler"></label>
