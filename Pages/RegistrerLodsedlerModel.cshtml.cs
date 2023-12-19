@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using EZLotteri.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace EZLotteri.Pages
 {
@@ -20,7 +21,7 @@ namespace EZLotteri.Pages
         [BindProperty]
         public int BarnID { get; set; }
 
-        [BindProperty]
+        [BindProperty, Range(0, 5)]
         public int AntalLodsedler { get; set; }
 
         public List<Barn> Børn { get; set; }
@@ -30,12 +31,12 @@ namespace EZLotteri.Pages
             HentAlleBørn();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPostRegister()
         {
             if (ModelState.IsValid)
             {
                 RegistrerLodsedler();
-                return RedirectToPage("/RegistrerLodsedler"); // Redirect til samme side
+                return RedirectToPage("/RegistrerLodsedler/Index");
             }
 
             HentAlleBørn();
@@ -53,9 +54,7 @@ namespace EZLotteri.Pages
 
             if (barn != null)
             {
-                // Kontroller for at undgå at overskride det oprindelige antal lodsedler (5)
-                barn.AntalModtagneLodsedler = AntalLodsedler <= 5 ? AntalLodsedler : 5;
-
+                barn.AntalModtagneLodsedler = AntalLodsedler;
                 _dbContext.SaveChanges();
             }
         }
