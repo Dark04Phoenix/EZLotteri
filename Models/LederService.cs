@@ -26,7 +26,6 @@ public class LederService
             .SelectMany(bg => bg.Børn)
             .ToList();
     }
-
     public Barn HentBarnDetaljer(int barnId)
     {
         return _ezlotteri.Set<Barn>()
@@ -34,4 +33,6 @@ public class LederService
             .Include(b => b.Børnegruppe)  // Inkluder Børnegruppe-navigationsegenskaben
             .FirstOrDefault();
     }
+
+
 }

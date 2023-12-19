@@ -1,0 +1,21 @@
+﻿@page
+@model EZLotteri.Pages.OpretBarnModel
+@{
+    ViewData["Title"] = "Opret Barn";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Barn.Navn"></label>
+        <input asp-for="Barn.Navn" class="form-control" />
+        <span asp-validation-for="Barn.Navn" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Barn.Børnegruppe.BørnegruppeID"></label>
+        <select asp-for="Barn.Børnegruppe.BørnegruppeID" asp-items="@(new SelectList(Model.BørneGrupper, nameof(BørneGruppe.BørnegruppeID), nameof(BørneGruppe.Navn)))" class="form-control"></select>
+        <span asp-validation-for="Barn.Børnegruppe.BørnegruppeID" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Opret Barn</button>
+</form>

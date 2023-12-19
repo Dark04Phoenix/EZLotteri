@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EZLotteri.Models
 {
-    [NotMapped]
+   
     public class Bestyrelse
     {
         [Key]

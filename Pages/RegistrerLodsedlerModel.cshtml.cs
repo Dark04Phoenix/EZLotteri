@@ -50,7 +50,7 @@ namespace EZLotteri.Pages
 
         private void HentAlleBørn()
         {
-            Børn = _dbContext.Børn
+            Børn = _dbContext.Barn
                 .Select(b => new Barn
                 {
                     BarnID = b.BarnID,

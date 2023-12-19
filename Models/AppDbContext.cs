@@ -9,7 +9,7 @@ namespace EZLotteri.Models
         {
         }
 
-        public DbSet<Barn> Børn { get; set; }
+        public DbSet<Barn> Barn { get; set; }
         public DbSet<Bruger> Brugere { get; set; }
         public DbSet<BørneGruppe> Børnegruppe { get; set; }
         public DbSet<Leder> Ledere { get; set; }
