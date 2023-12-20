@@ -34,7 +34,8 @@ namespace EZLotteri.Pages
             if (ModelState.IsValid)
             {
                 GemLodsedler();
-                return RedirectToPage("/BørneGrupper");
+                TempData["SuccessMessage"] = "Du har succesfuldt administreret lodsedlerne.";
+                return Page();
             }
 
             HentBørneGrupper();

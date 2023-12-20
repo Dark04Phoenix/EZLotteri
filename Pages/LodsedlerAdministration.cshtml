@@ -6,10 +6,17 @@
 
 <h2>@ViewData["Title"]</h2>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <form method="post">
     <div class="form-group">
         <label asp-for="BørneGruppeId"></label>
-        <select asp-for="BørneGruppeId" asp-items="@(new SelectList(Model.BørneGrupper, nameof(EZLotteri.Models.BørneGruppe.BørnegruppeID), nameof(EZLotteri.Models.BørneGruppe.Navn)))" class="form-control"></select>
+        <select asp-for="BørneGruppeId" asp-items="@(Model.BørneGrupper != null ? new SelectList(Model.BørneGrupper, nameof(EZLotteri.Models.BørneGruppe.BørnegruppeID), nameof(EZLotteri.Models.BørneGruppe.BørnegruppeID)) : null)" class="form-control"></select>
     </div>
     <div class="form-group">
         <label asp-for="AntalUdstedteLodsedler"></label>
@@ -21,6 +28,3 @@
     </div>
     <button type="submit" class="btn btn-primary">Gem Lodsedler</button>
 </form>
-
-
-
