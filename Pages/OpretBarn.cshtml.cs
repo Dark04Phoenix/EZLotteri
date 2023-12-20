@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EZLotteri.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EZLotteri.Pages
 {
@@ -30,6 +31,8 @@ namespace EZLotteri.Pages
         {
             if (ModelState.IsValid)
             {
+                GenererBarnID();
+                TildelBørnegruppeID();
                 GemNytBarn();
                 return RedirectToPage("/BørneGrupper");
             }
@@ -41,6 +44,29 @@ namespace EZLotteri.Pages
         private void HentBørneGrupper()
         {
             BørneGrupper = _dbContext.Børnegruppe.ToList();
+        }
+
+        private void GenererBarnID()
+        {
+            // Find det højeste eksisterende BarnID
+            int højesteBarnID = _dbContext.Barn.Max(b => b.BarnID);
+
+            // Tildel det næste unikke BarnID
+            Barn.BarnID = højesteBarnID + 1;
+        }
+
+        private void TildelBørnegruppeID()
+        {
+            // Tildel den valgte BørnegruppeID til det nye barn
+            if (ModelState.TryGetValue("Barn.BørnegruppeID", out var entry))
+            {
+                var børnegruppeIdValue = entry.AttemptedValue;
+
+                if (int.TryParse(børnegruppeIdValue, out int børnegruppeIdParsed))
+                {
+                    Barn.BørnegruppeID = børnegruppeIdParsed;
+                }
+            }
         }
 
         private void GemNytBarn()

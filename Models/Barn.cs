@@ -12,6 +12,10 @@ namespace EZLotteri.Models
         public int AntalSolgteMobilePay { get; set; }
         public int AntalSolgteKontanter { get; set; }
 
+        // Tilføj denne egenskab som fremmed nøgle
+        [ForeignKey("Børnegruppe")]
+        public int BørnegruppeID { get; set; }
+
         public virtual Leder Leder { get; set; }
         public virtual BørneGruppe Børnegruppe { get; set; }
     }
