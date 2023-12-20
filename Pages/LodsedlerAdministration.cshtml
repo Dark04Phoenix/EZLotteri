@@ -1,0 +1,26 @@
+﻿@page
+@model EZLotteri.Pages.LodsedlerAdministrationModelModel
+@{
+    ViewData["Title"] = "Lodsedler Administration";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="BørneGruppeId"></label>
+        <select asp-for="BørneGruppeId" asp-items="@(new SelectList(Model.BørneGrupper, nameof(EZLotteri.Models.BørneGruppe.BørnegruppeID), nameof(EZLotteri.Models.BørneGruppe.Navn)))" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="AntalUdstedteLodsedler"></label>
+        <input asp-for="AntalUdstedteLodsedler" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AntalReturneredeLodsedler"></label>
+        <input asp-for="AntalReturneredeLodsedler" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Gem Lodsedler</button>
+</form>
+
+
+
